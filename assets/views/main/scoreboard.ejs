@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>جدول امتیازات</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+
+<body dir="rtl">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Petria</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/user/scoreboard">جدول امتیازات <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/chat">چت</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/map">نقشه اردوگاه</a>                    
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/gamePassword">ثبت رمز</a>                    
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/priority">ثبت اولویت‌ها</a>                    
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="text-center filter">
+    
+        مشاهده رتبه‌ها بر اساس: <a href="#" id="filterTeam" onclick="handleClick('team')" >تیم</a>  |  <a href="#" id="filterFaculty" onclick="handleClick('faculty')">دانشکده</a>
+    </div>
+
+    <div class="container" id="team">
+        <div class="responsive-table-sm text-center">
+            <table cellpadding=0 cellspacing=0 class="table">
+                <thead>
+                    <tr>
+                        <th>رنک</th>
+                        <th>نام تیم</th>
+                        <th>دانشکده</th>
+                        <th>فکری</th>
+                        <th>ساختنی</th>
+                        <th>تحرکی</th>
+                        <th>سایر</th>
+                        <th>امتیاز</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (var i = 0; i < teamInformation.length; i++){ %>
+                    <tr>
+                        <td>
+                            <%= i + 1 %>
+                        </td>
+                        <td>
+                            <%= teamInformation[i].teamName %>
+                        </td>
+                        <td>
+                            <%= teamInformation[i].faculty %>
+                        </td>
+                        <td>
+                            <%= teamInformation[i].fekri %>
+                        </td>
+                        <td>
+                            <%= teamInformation[i].sakhtani %>
+                        </td>
+                        <td>
+                            <%= teamInformation[i].taharoki %>
+                        </td>
+                        <td>
+                            <%= teamInformation[i].etc %>
+                        </td>
+                        <td>
+                            <%= Number((teamInformation[i].score).toFixed(2)) %>
+                        </td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="container" id="faculty">
+        <div class="responsive-table-sm text-center">
+            <table cellpadding=0 cellspacing=0 class="table">
+                <thead>
+                    <th>رنک</th>
+                    <th>دانشکده</th>
+                    <th>امتیاز</th>
+                </thead>
+                <tbody>
+                    <% for (var i = 0; i < finalResult.length; i++){ %>
+                    <tr>
+                        <td>
+                            <%= i + 1 %>
+                        </td>
+                        <td>
+                            <%= finalResult[i]._id%>
+                        </td>
+                        <td>
+                            <%= Number((finalResult[i].average).toFixed(2)) %>
+                        </td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("team").classList.add('none');
+        document.getElementById("filterFaculty").classList.add('disableFaculty');
+        function handleClick(name){
+            if (name == "faculty"){
+                document.getElementById("team").classList.add('none');
+                document.getElementById("faculty").classList.remove('none');
+                document.getElementById("filterTeam").classList.remove('disableTeam');
+                document.getElementById("filterFaculty").classList.add('disableFaculty');
+            }
+            else {
+                document.getElementById("faculty").classList.add('none');
+                document.getElementById("team").classList.remove('none');
+                document.getElementById("filterTeam").classList.add('disableTeam');
+                document.getElementById("filterFaculty").classList.remove('disableFaculty');
+            }
+
+        }
+    </script>
+
+</body>

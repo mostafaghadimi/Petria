@@ -1,0 +1,98 @@
+@font-face {
+    font-family: 'B Yekan';
+    src: url("BYekan.eot?") format("eot"), 
+    url("BYekan.woff") format("woff"),
+    url("BYekan.ttf") format("truetype"),
+    url("BYekan.svg#BYekan") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    text-decoration: none !important;
+    font-family: 'B Yekan';
+    outline: none;
+    font-size: 14px;
+}
+
+.filter {
+    margin: 20px 0 20px 0;
+}
+
+.none {
+    display: none;
+}
+
+.disableTeam {
+    color: darkblue
+}
+
+.disableFaculty {
+    color: darkblue
+}
+
+.submitPassword input,
+.submitPassword input:not(:focus) {
+    /* border-radius: 10px; */
+    margin-top: 10px;
+    padding: 4px;
+    width: 70%;
+    box-shadow: none;
+    border: none;
+    background-color: #fafafa;
+    height: 30px;
+    transition-duration: 1s;
+    border-radius: 6px;
+}
+
+.submitPassword input:focus {
+    background-color: #efeeee;
+    transition-duration: 1s;
+}
+
+.submitPassword button,
+.submitPassword button:not(:hover) {
+    border-radius: 6px;
+    background-color: #2f9a00;
+    color: white;
+    border: none;
+    padding: 4px;
+    transition-duration: 1s;
+    height: 30px;
+    font-size: 13px;
+}
+
+.submitPassword button:hover {
+    background-color: #195200;
+    transition-duration: 1s;
+}
+
+.submittedPass {
+    margin-top: 30px;
+}
+
+.upvote:hover {
+    cursor: pointer;
+    color: blue;
+    transition-duration: 1s;
+}
+
+.upvote:not(:hover) {
+    transition-duration: 1s;
+}
+
+.priority, priority:not(:hover) {
+    border-radius: 6px;
+    background-color: #2f9a00;
+    color: white;
+    border: none;
+    padding: 4px;
+    transition-duration: 1s;
+    height: 30px;
+    font-size: 13px;
+}
+
+.priority:hover {
+    background-color: #195200;
+    transition-duration: 1s;
+}

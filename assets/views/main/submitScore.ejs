@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>ثبت امتیازات</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+
+<body dir="rtl">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Petria</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/submitScore">ثبت امتیازات <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/chat">چت</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">نقشه اردوگاه</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/gamePassword">ثبت رمز</a>                    
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/priority">ثبت اولویت‌ها</a>                    
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container responsive-table-md text-center">
+        <table cellpadding = 0 cellspacing = 0 class="table">
+            <tbody>
+                <tr>
+                    <td>
+                        نام بازی:
+                    </td>
+                    <td>
+                        <input list="games" id="gameName">
+                        <datalist id="games">
+                            <option>بازی فکری</option>
+                            <option>بازی ساختنی</option>
+                            <option>بازی تحرکی</option>
+                            <option>بازی دیگر</option>
+                        </datalist>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        نام تیم برنده:
+                    </td>
+                    <td>
+                        <input list="winnerName" >
+                        <datalist id="winnerName">
+                            <% for (var i = 0; i < teams.length; i++) { %>
+                                <option><%= teams[i].teamName %></option>
+                            <% } %>
+                        </datalist>
+                    </td>
+                    <td>
+                        <input id="winnerScore" type="text" placeholder="امتیاز تیم برنده">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        نام تیم بازنده:
+                    </td>
+                    <td>
+                        <input list="loserName">
+                        <datalist id="loserName">
+                            <% for (var i = teams.length - 1; i >= 0; i--) { %>
+                                <option><%= teams[i].teamName %></option>
+                            <% } %>
+                        </datalist>
+                    </td>
+                    <td>
+                        <input id="loserScore" type="text" placeholder="امتیاز تیم بازنده">
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td><input type="button" value="ثبت" onclick="submitScore()" class="submitScore btn btn-success"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        function submitScore() {
+            $.post('/admin/submitScore', {
+                winnerName: $('#winnerName').val(),
+                winnerScore: Number($('#winnerScore').val()),
+                loserName: $('#loserName').val(),
+                loserScore: Number($('#loserScore').val()),
+                gameName: $('#gameName').val()
+            }).done(() => {
+                // TODO: admin panel
+                window.location.assign('/user/scoreboard')
+            })
+        }
+    </script>
+</body>
+</html>

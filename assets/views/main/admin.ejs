@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Petria سرگروه‌های</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/stylesheet.css">
+</head>
+
+<body>
+
+    <% if (typeof err != 'undefined') { %>
+        alert(err)
+    <% } %>
+	<main ontouchstart class="with-hover">
+		<section>
+			<h1>
+				<a id="link-signup" class="active">ثبت‌نام</a>
+				<a id="link-login">ورود</a>
+			</h1>
+			<form id="form-signup" class="active">
+				<div>
+					<fieldset>
+						<div>
+							<input id="adminName" type="text" placeholder="نام سرگروه" class="inputFullName" />
+							<label for="adminName">سرگروه</label>
+						</div>
+					</fieldset>
+					<fieldset>
+						<div>
+							<input list="faculty" class="faculty" id="fakulty"> 
+							<datalist id="faculty">
+								<option>مهندسی کامپیوتر</option>
+								<option>مهندسی برق</option>
+								<option>مهندسی مکانیک</option>
+								<option>مهندسی هوافضا</option>
+								<option>مهندسی عمران</option>
+								<option>مهندسی صنایع</option>
+								<option>مهندسی شیمی و نفت</option>
+								<option>مهندسی مواد</option>
+								<option>فیزیک</option>
+								<option>شیمی</option>
+								<option>ریاضی</option>
+							</datalist>
+							<label for="faculty">دانشکده</label>
+						</div>
+					</fieldset>
+					<fieldset>
+						<div>
+							<input id="emailSignUp" type="email" placeholder="mostafa.ghadimi@yahoo.com" required/>
+							<label for="emailSignUp">ایمیل</label>
+						</div>
+					</fieldset>
+					<fieldset>
+						<div>
+							<input id="passwordSignUp" type="password" placeholder="••••••••" />
+							<label for="passwordSignUp">رمزعبور</label>
+						</div>
+					</fieldset>
+				</div>
+
+				<ul class="ps">
+					<li>
+						نکته1
+					</li>
+					<li>
+						نکته2
+					</li>
+				</ul>
+
+				<input type="button" value="ثبت‌نام" onclick="registration()"/>
+			</form>
+			<form id="form-login">
+				<div>
+					<fieldset>
+						<div>
+							<input id="emailSignIn" type="email" placeholder="mostafa.ghadimi@yahoo.com" />
+							<label for="emailSignIn">ایمیل</label>
+						</div>
+					</fieldset>
+					<fieldset>
+						<div>
+							<input id="passwordSignIn" type="password" placeholder="••••••••" />
+							<label for="passwordSignIn">رمزعبور</label>
+						</div>
+					</fieldset>
+				</div>
+
+				<ul class="ps">
+					<li>
+						نکته1
+					</li>
+					<li>
+						نکته2
+					</li>
+				</ul>
+
+				<input type="button" value="ورود" onclick="login()"/>
+			</form>
+		</section>
+		<aside>
+			<div></div>
+			<div>
+				<p id="intro-signup" class="active">در این قسمت  سرگروه‌ها را ثبت‌نام کنید</p>
+				<p id="intro-login">بیا تو دم در بده :))</strong>!</p>
+			</div>
+		</aside>
+	</main>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+	<script src="/js/index.js"></script>
+	<script>
+
+	function registration() {
+		validation($('#teamName').val(), $('#faculty').val(), $('#email').val(), $('#password').val())
+	}
+
+	function validation(teamName, faculty, email, password) {
+		if (teamName == "" || email == "" || password == ""){
+			return alert("لطفا همه‌ی فیلدها را کامل پر کنید")
+		}		
+		else {
+			submitInformation(teamName, faculty, email, password)
+		}
+		
+	}
+
+	function submitInformation(teamName, faculty, email, password){
+		$.post('/admin/register', {
+			adminName: $('#adminName').val(),
+			faculty: $('#fakulty').val(),
+			email: $('#emailSignUp').val(),
+			password: $('#passwordSignUp').val()
+		}).done(() => {
+			window.location.assign('/admin/submitScore')
+			console.log('registration and redirect!')
+            // history.pushState(null, null, "/user/scoreboard");
+        })
+	}
+	
+	function login() {
+		$.post('/admin/login', {
+			email: $('#emailSignIn').val(),
+			password: $('#passwordSignIn').val()
+		}).done((result) => {
+			console.log(result)
+			window.location.assign('/admin/submitScore')
+			console.log('ferestadam YAAAAAAAAAY')
+		})
+	}
+</script>
+</body>
+</html>

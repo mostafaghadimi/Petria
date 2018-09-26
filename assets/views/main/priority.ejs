@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <title>ثبت اولویت‌ها</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+<body dir="rtl">
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Petria</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/scoreboard">جدول امتیازات </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/chat">چت</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/map">نقشه اردوگاه</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/gamePassword">ثبت رمز</a>                    
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/user/priority">ثبت اولویت‌ها</a>                    
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container text-center">
+        <table class="table" cellspacing = 0 cellpadding = 0>
+            <tbody>
+                <tr>
+                    <td>نام تیم:</td>
+                    <td><input type="text" id="teamName" placeholder="نام تیم" autocomplete="off"></td>
+                </tr>
+                <tr>
+                    <td>تعداد اعضای تیم</td>
+                    <td><input type="number" min=4 max=6 id="teamNo" value="5"></td>
+                </tr>
+                <tr>
+                    <td>
+                        بازی فکری اول:
+                    </td>
+                    <td>
+                        <select id="fekri1">
+                            <option>کندو</option>
+                            <option>موزاییده</option>
+                            <option>پازل</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        بازی فکری دوم:
+                    </td>
+                    <td>
+                        <select id="fekri2">
+                            <option>موزاییده</option>
+                            <option>کندو</option>
+                            <option>پازل</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        بازی ساختنی اول:
+                    </td>
+                    <td>
+                        <select id="sakhtani1">
+                            <option>مترشمالو</option>
+                            <option>چتر نجات</option>
+                            <option>منجنیق</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        بازی ساختنی دوم:
+                    </td>
+                    <td>
+                        <select id="sakhtani2">
+                            <option>چتر نجات</option>
+                            <option>مترشمالو</option>
+                            <option>منجنیق</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        بازی تحرکی اول:
+                    </td>
+                    <td>
+                        <select id="taharoki1">
+                            <option>وسطی</option>
+                            <option>پابند</option>
+                            <option>گل‌بال</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        بازی تحرکی دوم:
+                    </td>
+                    <td>
+                        <select id="taharoki2">
+                            <option>پابند</option>
+                            <option>وسطی</option>
+                            <option>گل‌بال</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        بازی دیگر اول:
+                    </td>
+                    <td>
+                        <select id="etc1">
+                            <option>اعتماد</option>
+                            <option>شوک</option>
+                            <option>پانتومیم</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        بازی دیگر دوم:
+                    </td>
+                    <td>
+                        <select id="etc2">
+                            <option>شوک</option>
+                            <option>اعتماد</option>
+                            <option>پانتومیم</option>
+                        </select>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td></td>
+                    <td><button class="priority" onclick="submitPriority()">ثبت اولویت‌ها</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        function submitPriority() {
+            if (($('#etc1').val() != $('#etc2').val()) && ($('#taharoki1').val() != $('#taharoki2').val()) && ($('#sakhtani1').val() != $('#sakhtani2').val()) && ($('#fekri1').val() && $('#fekri2').val()) ) {
+                $.post('/user/priority', {
+                    etc1: $('#etc1').val(),
+                    etc2: $('#etc2').val(),
+                    taharoki1: $('#taharoki1').val(),
+                    taharoki2: $('#taharoki2').val(),
+                    sakhtani1: $('#sakhtani1').val(),
+                    sakhtani2: $('#sakhtani2').val(),
+                    fekri1: $('#fekri1').val(),
+                    fekri2: $('#fekri2').val(),
+                    teamNo: Number($('#teamNo').val()),
+                    teamName: $('#teamName').val(),
+                    userId: '<%= userId %>'
+                }).done(() => {
+                    window.location.assign('/user/scoreboard')
+                })
+            }
+            else {
+                alert('باید موارد متمایز انتخاب شوند')
+            }
+        }
+    </script>
+</body>
+</html>
