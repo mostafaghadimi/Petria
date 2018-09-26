@@ -169,24 +169,24 @@ router.post('/register', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-    var email = req.body.email;
-    var password = req.body.password;
-    userModel.authenticate(email, password, (err, user) => {
-        if (err) {
-            console.log('here')
-            res.render('main/index', {
-                err: "نام کاربری یا رمز عبور اشتباه است"
-            })
-        } else if (!user) {
-            console.log('Wrong Password')
-        } else {
-            console.log(user);
-            req.session.userId = user._id;
-            req.session.faculty = user.faculty;
-            req.session.teamName = user.teamName
-            res.redirect('/user/scoreboard')
-        }
-    })
+    // var email = req.body.email;
+    // var password = req.body.password;
+    // userModel.authenticate(email, password, (err, user) => {
+    //     if (err) {
+    //         console.log('here')
+    //         res.render('main/index', {
+    //             err: "نام کاربری یا رمز عبور اشتباه است"
+    //         })
+    //     } else if (!user) {
+    //         console.log('Wrong Password')
+    //     } else {
+    //         console.log(user);
+    //         req.session.userId = user._id;
+    //         req.session.faculty = user.faculty;
+    //         req.session.teamName = user.teamName
+    //         res.redirect('/user/scoreboard')
+    //     }
+    // })
 });
 
 router.post('/priority', (req, res) => {
