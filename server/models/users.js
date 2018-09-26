@@ -83,8 +83,8 @@ userSchema.pre('save', function(next) {
     }
 });
 
-userSchema.statics.authenticate = (email, password, callback) => {
-    userModel.findOne({email: email}, (err, user) => {
+userSchema.statics.authenticate = (teamName, password, callback) => {
+    userModel.findOne({teamName: teamName}, (err, user) => {
         if (err) return callback(err);
         else if (!user) {
             console.log('User not found!')
@@ -94,6 +94,7 @@ userSchema.statics.authenticate = (email, password, callback) => {
                 if (result) {
                     callback(null, user)
                 }
+                else if (err) console.log(err)
                 else {
                     return callback()
                 }

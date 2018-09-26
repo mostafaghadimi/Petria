@@ -74,8 +74,8 @@
 				<div>
 					<fieldset>
 						<div>
-							<input id="emailSignIn" type="email" placeholder="mostafa.ghadimi@yahoo.com" />
-							<label for="emailSignIn">ایمیل</label>
+							<input id="emailSignIn" type="email" placeholder="نام تیم" />
+							<label for="emailSignIn">نام تیم</label>
 						</div>
 					</fieldset>
 					<fieldset>
@@ -110,32 +110,30 @@
 	<script src="/js/index.js"></script>
 	<script>
 	function registration() {
-		validation($('#teamName').val(), $('#faculty').val(), $('#email').val(), $('#password').val())
+		validation($('#teamName').val(), $('#faculty').val(), $('#password').val())
 	}
 
 	function validation(teamName, faculty, email, password) {
-		if (teamName == "" || email == "" || password == ""){
+		if (teamName == "" || password == ""){
 			return alert("لطفا همه‌ی فیلدها را کامل پر کنید")
 		}		
 		else {
-			submitInformation(teamName, faculty, email, password)
+			submitInformation(teamName, faculty, password)
 		}	
 	}
-	function submitInformation(teamName, faculty, email, password){
+	function submitInformation(teamName, faculty, password){
 		$.post('/user/register', {
 			teamName: $('#teamName').val(),
 			faculty: $('#faculty').val(),
-			email: $('#emailSignUp').val(),
 			password: $('#passwordSignUp').val()
 		}).done(() => {
-			window.location.assign('/user/scoreboard')
-			console.log('registration and redirect!')
-            // history.pushState(null, null, "/user/scoreboard");
+			window.location.assign('/user/scoreboard');
+			console.log('registration and redirect!');
         })
 	}
 	function login() {
 		$.post('/user/login', {
-			email: $('#emailSignIn').val(),
+			teamName: $('#emailSignIn').val(),
 			password: $('#passwordSignIn').val()
 		}).done((result) => {
 			console.log(result)
