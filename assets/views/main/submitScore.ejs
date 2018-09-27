@@ -101,8 +101,8 @@
             $.post('/admin/submitScore', {
                 winnerName: $('#winner').val(),
                 winnerScore: Number($('#winnerScore').val()),
-                loserName: $('#loserName').val(),
-                loserScore: Number($('#loser').val()),
+                loserName: $('#loser').val(),
+                loserScore: Number($('#loserScore').val()),
                 gameName: $('#gameName').val()
             }).done(() => {
                 // TODO: admin panel
