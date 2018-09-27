@@ -61,7 +61,7 @@
                         نام تیم برنده:
                     </td>
                     <td>
-                        <input list="winnerName" >
+                        <input list="winnerName"  id="winner">
                         <datalist id="winnerName">
                             <% for (var i = 0; i < teams.length; i++) { %>
                                 <option><%= teams[i].teamName %></option>
@@ -77,7 +77,7 @@
                         نام تیم بازنده:
                     </td>
                     <td>
-                        <input list="loserName">
+                        <input list="loserName" id="loser">
                         <datalist id="loserName">
                             <% for (var i = teams.length - 1; i >= 0; i--) { %>
                                 <option><%= teams[i].teamName %></option>
@@ -99,10 +99,10 @@
     <script>
         function submitScore() {
             $.post('/admin/submitScore', {
-                winnerName: $('#winnerName').val(),
+                winnerName: $('#winner').val(),
                 winnerScore: Number($('#winnerScore').val()),
                 loserName: $('#loserName').val(),
-                loserScore: Number($('#loserScore').val()),
+                loserScore: Number($('#loser').val()),
                 gameName: $('#gameName').val()
             }).done(() => {
                 // TODO: admin panel
