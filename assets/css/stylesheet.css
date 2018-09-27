@@ -96,3 +96,8 @@
     background-color: #195200;
     transition-duration: 1s;
 }
+
+
+.menuMargin {
+    margin-left:20px;
+}
