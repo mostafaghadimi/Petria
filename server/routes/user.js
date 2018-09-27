@@ -119,7 +119,7 @@ router.post('/vote/:gamePassword', (req, res) => {
         if (err) console.log(err)
         else {
             result.votes += 1
-            result.save((err) => {
+            result.save(function (err) {
                 if (err) console.log(err)
             })
         }
@@ -204,7 +204,7 @@ router.post('/priority', (req, res) => {
             user.sakhtani2 = req.body.sakhtani2;
             user.etc1 = req.body.etc1;
             user.etc2 = req.body.etc2;
-            user.save((err) => {
+            user.save(function (err) {
                 if (err) console.log(err);
             });
         }
